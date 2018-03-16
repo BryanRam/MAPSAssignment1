@@ -107,8 +107,8 @@ class SampleSort
 		* Global var:  barrier
 		* Return val:  Ignored
 		*/
-		void *Thread_work(void* rank) {
-			long my_rank = (long)rank;
+		void *Thread_work(long rank) {
+			long my_rank = rank;
 			int i, j, seed, index, offset, local_chunk_size, local_sample_size;
 			int local_pointer, s_index, my_segment, col_sum;
 			int *local_data;
@@ -136,7 +136,7 @@ class SampleSort
 			}
 
 			// Ensure all threads have reached this point, and then let continue
-			#pragma omp barrier
+			//#pragma omp barrier
 			//pthread_barrier_wait(&barrier);
 
 			// Parallel count sort the sample keys
@@ -168,7 +168,7 @@ class SampleSort
 			}
 
 			// Ensure all threads have reached this point, and then let continue
-			#pragma omp barrier
+			//#pragma omp barrier
 			//pthread_barrier_wait(&barrier);
 
 			// Using block partition to retrieve and sort local chunk
@@ -208,7 +208,7 @@ class SampleSort
 			}
 
 			// Ensure all threads have reached this point, and then let continue
-			#pragma omp barrier
+			//#pragma omp barrier
 			//pthread_barrier_wait(&barrier);
 
 			// Generate prefix sum distribution array 
@@ -227,7 +227,7 @@ class SampleSort
 			}
 
 			// Ensure all threads have reached this point, and then let continue
-			#pragma omp barrier
+			//#pragma omp barrier
 			//pthread_barrier_wait(&barrier);
 
 			// Generate column distribution array 
@@ -245,7 +245,7 @@ class SampleSort
 			}
 
 			// Ensure all threads have reached this point, and then let continue
-			#pragma omp barrier
+			//#pragma omp barrier
 			//pthread_barrier_wait(&barrier);
 
 			// Generate column sum distribution, each thread responsible for one column
@@ -256,7 +256,7 @@ class SampleSort
 			col_dist[my_rank] = col_sum;
 
 			// Ensure all threads have reached this point, and then let continue
-			#pragma omp barrier
+			//#pragma omp barrier
 			//pthread_barrier_wait(&barrier);
 
 			// Generate prefix column sum distribution, each thread responsible for one column
@@ -278,13 +278,14 @@ class SampleSort
 			}
 
 			// Ensure all threads have reached this point, and then let continue
-			#pragma omp barrier
+			//#pragma omp barrier
 			//pthread_barrier_wait(&barrier);
 
 			// Reassemble each thread's partially sorted list based on buckets
 			// Allocate an array based on the column sum of this specific bucket
 			int my_first_D = col_dist[my_rank];
-			int *my_D = (int *) malloc(my_first_D * sizeof(int));
+			//int *my_D = (int *) malloc(my_first_D * sizeof(int));
+			int *my_D = &col_dist[my_rank];
 			printf("~~~ Thread %ld got here, my_first_D = %d\n", my_rank, my_first_D);
 
 			int b_index = 0;

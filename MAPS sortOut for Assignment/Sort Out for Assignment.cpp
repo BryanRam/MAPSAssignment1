@@ -54,6 +54,8 @@ int threads = 8;
 
 void getData(void);
 void sortEachRow(void);
+void qSortEachRow(void);
+void qSortAll(void);
 //void SampleSort(void);
 void MergeSort(void);
 void MergeSortP(int*, int, int);
@@ -81,7 +83,9 @@ int main(void)
 	omp_set_num_threads(threads);
 	getData();
 
+	/*
 	thread_count = threads;
+	sample_size = 1000;
 	//sample_size = ;
 	list_size = (MAX_ROWS*MAX_COLS) - 1;
 
@@ -102,16 +106,18 @@ int main(void)
 
 	list = &_data[0][0];
 
-    #pragma omp parallel for
-	for (long thread = 0; thread < thread_count; thread++)
+   // #pragma omp parallel for
+	for (long thread = 1; thread < thread_count+1; thread++)
 	{
-		sampleS.Thread_work(sample_keys);
+		//cout << "Thread: " << omp_get_thread_num() << "\tMax: " << omp_get_max_threads() << endl;
+		sampleS.Thread_work(thread);
 		//pthread_create(&thread_handles[thread], NULL,
 		//	sampleS.Thread_work, (void*)thread);
 	}
 
 	sampleS.Print_list(sorted_list, list_size, "Sorted list");
 	system("pause");
+	*/
 	/*
 	#pragma omp parallel for
 	for (thread = 0; thread < thread_count; thread++)
@@ -120,7 +126,8 @@ int main(void)
 	}
 	*/
 	s1.startTimer();
-	sortEachRow();
+//	sortEachRow();
+	qSortEachRow();
 //#pragma omp barrier
 
 	/*
@@ -140,8 +147,10 @@ int main(void)
 
 	displayCheckData();
 
+
 	s2.startTimer();
-	MergeSortP(_dataP, 0, ((MAX_ROWS*MAX_COLS) - 1));
+	//MergeSortP(_dataP, 0, ((MAX_ROWS*MAX_COLS) - 1));
+	qSortAll();
 	s2.stopTimer();
 
 	s3.startTimer();
@@ -436,6 +445,39 @@ void merge(int _d[], int start, int mid, int end) {
 	}
 
 }
+
+//*********************************************************************************
+void qSortEachRow()
+{
+	//cout << "Sorting data...";
+    #pragma omp parallel for
+	for (int i = 0; i<MAX_ROWS; i++)
+	{
+		void* _pData = &_data[i][0];
+		qsort(_pData, MAX_COLS, sizeof(int), Int_comp);
+		/*
+		//Use a bubble sort on a row 
+		for (int n = MAX_COLS - 1; n >= 0; n--)
+		{
+			for (int j = 0; j<n; j++)
+			{
+				if (_data[i][j] > _data[i][j + 1])
+				{
+					int temp = _data[i][j];
+					_data[i][j] = _data[i][j + 1];
+					_data[i][j + 1] = temp;
+				}
+			}
+		}
+		*/
+	}
+}
+
+void qSortAll()
+{
+	qsort(_dataP, MAX_ROWS * MAX_COLS, sizeof(int), Int_comp);
+}
+
 
 //*********************************************************************************
 void sortEachRow()
