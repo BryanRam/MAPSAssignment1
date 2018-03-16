@@ -37,5 +37,8 @@
     <Text Include="SortedTimes.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="SortedAll.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

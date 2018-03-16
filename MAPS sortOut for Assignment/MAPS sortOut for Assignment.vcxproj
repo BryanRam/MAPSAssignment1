@@ -76,6 +76,7 @@
     <ClInclude Include="SampleSort.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="SortedAll.txt" />
     <Text Include="SortedRows.txt" />
     <Text Include="SortedTimes.txt" />
   </ItemGroup>

@@ -159,3 +159,373 @@ Time for outputting to file SortedAll.txt : 1.30621 seconds
 Combined time               (s) : 4.15539
 __________________________________________________
 
+WITHOUT PARALLEL FOR
+
+Time for sorting all rows : 0.0796467 seconds
+
+Time for sorting all numbers : 0.441263 seconds MERGESORT
+Time for outputting to file SortedRows.txt : 1.91578 seconds
+Time for outputting to file SortedAll.txt : 1.79365 seconds
+Combined time               (s) : 4.23034
+__________________________________________________
+
+WITH PARALLEL FOR
+
+Time for sorting all rows : 0.0729727 seconds
+
+Time for sorting all numbers : 4.29195 seconds MERGESORT
+Time for outputting to file SortedRows.txt : 1.78476 seconds
+Time for outputting to file SortedAll.txt : 1.79049 seconds
+Combined time               (s) : 7.94017
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.0705876 seconds
+
+Time for sorting all numbers : 3.38855 seconds
+Time for outputting to file SortedRows.txt : 5.8968 seconds
+Time for outputting to file SortedAll.txt : 5.83954 seconds
+Combined time               (s) : 15.1955
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.0794648 seconds
+
+Time for sorting all numbers : 4.06527 seconds
+Time for outputting to file SortedRows.txt : 6.44855 seconds
+Time for outputting to file SortedAll.txt : 3.8391 seconds
+Combined time               (s) : 14.4324
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.0724963 seconds
+
+Time for sorting all numbers : 3.86667 seconds
+Time for outputting to file SortedRows.txt : 3.95707 seconds
+Time for outputting to file SortedAll.txt : 6.19616 seconds
+Combined time               (s) : 14.0924
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.243 seconds
+
+Time for sorting all numbers : 0.826183 seconds
+Time for outputting to file SortedRows.txt : 2.02114 seconds
+Time for outputting to file SortedAll.txt : 1.80574 seconds
+Combined time               (s) : 4.89606
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.249674 seconds
+
+Time for sorting all numbers : 0.784341 seconds
+Time for outputting to file SortedRows.txt : 2.39791 seconds
+Time for outputting to file SortedAll.txt : 1.70934 seconds
+Combined time               (s) : 5.14126
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.219476 seconds
+
+Time for sorting all numbers : 0.865774 seconds
+Time for outputting to file SortedRows.txt : 2.30221 seconds
+Time for outputting to file SortedAll.txt : 1.55177 seconds
+Combined time               (s) : 4.93923
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.292485 seconds
+
+Time for sorting all numbers : 0.888332 seconds
+Time for outputting to file SortedRows.txt : 1.57309 seconds
+Time for outputting to file SortedAll.txt : 1.52941 seconds
+Combined time               (s) : 4.28331
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.253126 seconds
+
+Time for sorting all numbers : 0.919091 seconds
+Time for outputting to file SortedRows.txt : 2.21266 seconds
+Time for outputting to file SortedAll.txt : 2.08391 seconds
+Combined time               (s) : 5.46878
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.239625 seconds
+
+Time for sorting all numbers : 0.000371772 seconds
+Time for outputting to file SortedRows.txt : 1.47452 seconds
+Time for outputting to file SortedAll.txt : 2.85901 seconds
+Combined time               (s) : 4.57353
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.248238 seconds
+
+Time for sorting all numbers : 0.000246897 seconds
+Time for outputting to file SortedRows.txt : 5.54421 seconds
+Time for outputting to file SortedAll.txt : 6.75564 seconds
+Combined time               (s) : 12.5483
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.203574 seconds
+
+Time for sorting all numbers : 0.900473 seconds
+Time for outputting to file SortedRows.txt : 2.41749 seconds
+Time for outputting to file SortedAll.txt : 1.65286 seconds
+Combined time               (s) : 5.17441
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.214881 seconds
+
+Time for sorting all numbers : 0.200318 seconds
+Time for outputting to file SortedRows.txt : 1.55616 seconds
+Time for outputting to file SortedAll.txt : 2.19258 seconds
+Combined time               (s) : 4.16393
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.183656 seconds
+
+Time for sorting all numbers : 0.191148 seconds
+Time for outputting to file SortedRows.txt : 1.53904 seconds
+Time for outputting to file SortedAll.txt : 2.28365 seconds
+Combined time               (s) : 4.19748
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.158592 seconds
+
+Time for sorting all numbers : 0.161474 seconds
+Time for outputting to file SortedRows.txt : 2.31645 seconds
+Time for outputting to file SortedAll.txt : 1.769 seconds
+Combined time               (s) : 4.40552
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.06454 seconds
+
+Time for sorting all numbers : 0.177153 seconds
+Time for outputting to file SortedRows.txt : 2.21234 seconds
+Time for outputting to file SortedAll.txt : 1.42971 seconds
+Combined time               (s) : 3.88374
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.0625144 seconds
+
+Time for sorting all numbers : 0.235429 seconds
+Time for outputting to file SortedRows.txt : 2.17596 seconds
+Time for outputting to file SortedAll.txt : 0.660973 seconds
+Combined time               (s) : 3.13487
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.0885461 seconds
+
+Time for sorting all numbers : 0.208771 seconds
+Time for outputting to file SortedRows.txt : 2.2732 seconds
+Time for outputting to file SortedAll.txt : 1.72832 seconds
+Combined time               (s) : 4.29884
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.0697597 seconds
+
+Time for sorting all numbers : 0.209284 seconds
+Time for outputting to file SortedRows.txt : 2.62179 seconds
+Time for outputting to file SortedAll.txt : 1.18902 seconds
+Combined time               (s) : 4.08985
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.082405 seconds
+
+Time for sorting all numbers : 0.179172 seconds
+Time for outputting to file SortedRows.txt : 2.64842 seconds
+Time for outputting to file SortedAll.txt : 1.21042 seconds
+Combined time               (s) : 4.12041
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.0839203 seconds
+
+Time for sorting all numbers : 0.215179 seconds
+Time for outputting to file SortedRows.txt : 2.31932 seconds
+Time for outputting to file SortedAll.txt : 0.764185 seconds
+Combined time               (s) : 3.3826
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.0833211 seconds
+
+Time for sorting all numbers : 0.190983 seconds
+Time for outputting to file SortedRows.txt : 2.37568 seconds
+Time for outputting to file SortedAll.txt : 1.51727 seconds
+Combined time               (s) : 4.16725
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.971294 seconds
+
+Time for sorting all numbers : 0.172406 seconds
+Time for outputting to file SortedRows.txt : 0.578931 seconds
+Time for outputting to file SortedAll.txt : 1.52948 seconds
+Combined time               (s) : 3.25212
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.0916126 seconds
+
+Time for sorting all numbers : 0.199028 seconds
+Time for outputting to file SortedRows.txt : 1.74278 seconds
+Time for outputting to file SortedAll.txt : 0.752344 seconds
+Combined time               (s) : 2.78577
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.0611733 seconds
+
+Time for sorting all numbers : 0.234128 seconds
+Time for outputting to file SortedRows.txt : 0.574445 seconds
+Time for outputting to file SortedAll.txt : 0.700277 seconds
+Combined time               (s) : 1.57002
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.0646868 seconds
+
+Time for sorting all numbers : 0.207853 seconds
+Time for outputting to file SortedRows.txt : 1.55648 seconds
+Time for outputting to file SortedAll.txt : 0.750299 seconds
+Combined time               (s) : 2.57932
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.0875254 seconds
+
+Time for sorting all numbers : 0.271274 seconds
+Time for outputting to file SortedRows.txt : 1.62858 seconds
+Time for outputting to file SortedAll.txt : 1.85038 seconds
+Combined time               (s) : 3.83777
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.225245 seconds
+
+Time for sorting all numbers : 0.248693 seconds
+Time for outputting to file SortedRows.txt : 1.5205 seconds
+Time for outputting to file SortedAll.txt : 1.52705 seconds
+Combined time               (s) : 3.52149
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.104668 seconds
+
+Time for sorting all numbers : 0.185584 seconds
+Time for outputting to file SortedRows.txt : 2.21086 seconds
+Time for outputting to file SortedAll.txt : 1.86703 seconds
+Combined time               (s) : 4.36815
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.0890479 seconds
+
+Time for sorting all numbers : 0.258822 seconds
+Time for outputting to file SortedRows.txt : 1.58444 seconds
+Time for outputting to file SortedAll.txt : 1.54109 seconds
+Combined time               (s) : 3.4734
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.0408889 seconds
+
+Time for sorting all numbers : 0.217611 seconds
+Time for outputting to file SortedRows.txt : 1.48734 seconds
+Time for outputting to file SortedAll.txt : 1.46274 seconds
+Combined time               (s) : 3.20857
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.0718464 seconds
+
+Time for sorting all numbers : 0.264157 seconds
+Time for outputting to file SortedRows.txt : 0.210633 seconds
+Time for outputting to file SortedAll.txt : 0.210722 seconds
+Combined time               (s) : 0.757359
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.0646432 seconds
+
+Time for sorting all numbers : 0.266482 seconds
+Time for outputting to file SortedRows.txt : 0.190574 seconds
+Time for outputting to file SortedAll.txt : 0.222747 seconds
+Combined time               (s) : 0.744446
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.0798341 seconds
+
+Time for sorting all numbers : 0.255616 seconds
+Time for outputting to file SortedRows.txt : 0.19454 seconds
+Time for outputting to file SortedAll.txt : 0.210621 seconds
+Combined time               (s) : 0.740612
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.0706841 seconds
+
+Time for sorting all numbers : 0.307715 seconds
+Time for outputting to file SortedRows.txt : 0.20853 seconds
+Time for outputting to file SortedAll.txt : 0.22698 seconds
+Combined time               (s) : 0.813909
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.0707003 seconds
+
+Time for sorting all numbers : 0.295491 seconds
+Time for outputting to file SortedRows.txt : 0.18438 seconds
+Time for outputting to file SortedAll.txt : 0.219579 seconds
+Combined time               (s) : 0.770151
+__________________________________________________
+

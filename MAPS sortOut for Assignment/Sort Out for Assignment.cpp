@@ -28,6 +28,7 @@ Bradley Ramsay
 #include <stdio.h>			//for fputs
 #include <vector>
 #include "SampleSort.h"
+#include "RadixSort.h"
 
 using namespace std;
 
@@ -40,7 +41,7 @@ using namespace std;
 #define SortedTimes "SortedTimes.txt"
 
 
-int _data [MAX_ROWS][MAX_COLS];		// 2000 rows of 1000 numbers to sort!
+int _data [MAX_ROWS][MAX_COLS], _data2[MAX_ROWS][MAX_COLS];		// 2000 rows of 1000 numbers to sort!
 const int rseed = 123;				// arbitrary seed for random number generator - PLEASE DON'T ALTER
 									// After sorting data generated with seed 123 these results should be true:
 const int	checkBeg = 87,			// at [0][0]
@@ -49,11 +50,13 @@ const int	checkBeg = 87,			// at [0][0]
 
 CStopWatch s1, s2, s3, s4;
 SampleSort sampleS;
+RadixSort radix;
 
 int threads = 8;
 
 void getData(void);
 void sortEachRow(void);
+void rSortEachRow(void);
 void qSortEachRow(void);
 void qSortAll(void);
 //void SampleSort(void);
@@ -73,7 +76,7 @@ int eIndex = _data[MAX_ROWS - 1][MAX_COLS - 1];
 int start1 = _data[0][0];
 int mid1 = (MAX_ROWS / 2)*(MAX_COLS / 2);
 int end1 = (MAX_ROWS - 1)*(MAX_COLS - 1);
-int* _dataP = &_data[0][0];
+int* _dataP = &_data2[0][0];
 
 
 
@@ -125,42 +128,51 @@ int main(void)
 		pthread_join(thread_handles[thread], NULL);
 	}
 	*/
-	s1.startTimer();
-//	sortEachRow();
-	qSortEachRow();
-//#pragma omp barrier
-
-	/*
-	cout << "1st elemdat: " << _data[0][0] << endl;
-	cout << "1st elem: " << _dataP[0] << endl;
-	cout << "2nd elemdat: " << _data[0][1] << endl;
-	cout << "2nd elem: " << _dataP[1] << endl;
-	cout << "Middle elemdat: " << _data[MAX_ROWS / 2][MAX_COLS/2] << endl;
-	cout << "Middle elem: " << _dataP[1000500] << endl;
-	cout << "Last elem: " << _data[MAX_ROWS - 1][MAX_COLS - 1] << endl;
-	cout << "Last elem: " << _dataP[(MAX_ROWS*MAX_COLS)-1] << endl;
-	*/
-	
-	//MergeSort();
-	
-	s1.stopTimer();
-
-	displayCheckData();
 
 
-	s2.startTimer();
-	//MergeSortP(_dataP, 0, ((MAX_ROWS*MAX_COLS) - 1));
-	qSortAll();
-	s2.stopTimer();
 
-	s3.startTimer();
-	outputDataAsString();
-	s3.stopTimer();
+//#pragma omp parallel sections
+//	{
+//		#pragma omp section
+//		{
+			s1.startTimer();
+			//	sortEachRow();
+			rSortEachRow();
+			//qSortEachRow();
+			/*
+			cout << "1st elemdat: " << _data[0][0] << endl;
+			cout << "1st elem: " << _dataP[0] << endl;
+			cout << "2nd elemdat: " << _data[0][1] << endl;
+			cout << "2nd elem: " << _dataP[1] << endl;
+			cout << "Middle elemdat: " << _data[MAX_ROWS / 2][MAX_COLS/2] << endl;
+			cout << "Middle elem: " << _dataP[1000500] << endl;
+			cout << "Last elem: " << _data[MAX_ROWS - 1][MAX_COLS - 1] << endl;
+			cout << "Last elem: " << _dataP[(MAX_ROWS*MAX_COLS)-1] << endl;
+			*/
 
-	s4.startTimer();
-	outputAllDataAsString();
-	s4.stopTimer();
+			s1.stopTimer();
 
+			displayCheckData();
+
+			s3.startTimer();
+			outputDataAsString();
+			s3.stopTimer();
+		/*}
+
+		#pragma omp section
+		{*/
+			s2.startTimer();
+			//MergeSortP(_dataP, 0, ((MAX_ROWS*MAX_COLS) - 1));
+			int n = sizeof(_data2) / sizeof(_data2[0][0]);
+			radix.radixsort(_dataP, n);
+			//qSortAll();
+			s2.stopTimer();
+
+			s4.startTimer();
+			outputAllDataAsString();
+			s4.stopTimer();
+		/*}
+	}*/
 	outputTimes();
 
 	while (!_kbhit());  //to hold console
@@ -171,8 +183,11 @@ void getData()		// Generate the same sequence of 'random' numbers.
 {
 	srand(123); //random number seed PLEASE DON'T CHANGE!
 	for (int i = 0; i<MAX_ROWS; i++)
-		for (int j = 0; j<MAX_COLS; j++)
+		for (int j = 0; j < MAX_COLS; j++)
+		{
 			_data[i][j] = rand(); //RAND_MAX = 32767
+			_data2[i][j] = _data[i][j];
+		}
 }
 
 /*
@@ -301,24 +316,24 @@ void mergeP(int* _d, int start, int mid, int end)
 	//int L[n1], R[n2];
 	
 	// Copy data to temp arrays L[] and R[] 
-	/*
-#pragma omp parallel sections
-	{
-#pragma omp section
-		for (i = 0; i < n1; i++)
-			L[i] = _d[start + i];
-#pragma omp section
-		for (j = 0; j < n2; j++)
-			R[j] = _d[mid + 1 + j];
-	}
-	*/
+	
+//#pragma omp parallel sections
+//	{
+//#pragma omp section
+//		for (i = 0; i < n1; i++)
+//			L[i] = _d[start + i];
+//#pragma omp section
+//		for (j = 0; j < n2; j++)
+//			R[j] = _d[mid + 1 + j];
+//	}
+	
 
-    //#pragma omp parallel for
+    #pragma omp parallel for
 	for (i = 0; i < n1; i++)
 	{
 		L[i] = _d[start + i];
 	}
-	//#pragma omp parallel for
+	#pragma omp parallel for
 	for (j = 0; j < n2; j++)
 	{
 		R[j] = _d[mid + 1 + j];
@@ -446,6 +461,16 @@ void merge(int _d[], int start, int mid, int end) {
 
 }
 
+void rSortEachRow()
+{
+	#pragma omp parallel for
+	for (int i = 0; i<MAX_ROWS; i++)
+	{
+		int n = sizeof(_data[i]) / sizeof(_data[i][0]);
+		radix.radixsort(_data[i], n);
+	}
+}
+
 //*********************************************************************************
 void qSortEachRow()
 {
@@ -570,7 +595,7 @@ void outputAllDataAsString()
 
 	for (int i = 0; i<MAX_ROWS; i++) {
 		for (int j = 0; j<MAX_COLS; j++) {
-			_itoa_s<6>(_data[i][j], numString, 10);
+			_itoa_s<6>(_data2[i][j], numString, 10);
 			odata += numString;
 			odata += "\t";
 		}
