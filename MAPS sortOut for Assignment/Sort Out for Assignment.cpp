@@ -21,6 +21,7 @@ Bradley Ramsay
 26004360
 ************************************************************************/
 #include <omp.h>
+#include <emmintrin.h>	//for integer intrinsics
 #include <fstream>			//for file output
 #include <iostream>			//for console output
 #include <conio.h>			//for kbhit
@@ -52,6 +53,13 @@ CStopWatch s1, s2, s3, s4;
 SampleSort sampleS;
 RadixSort radix;
 
+__declspec(align(16)) int sData[MAX_COLS];
+__declspec(align(16)) float pointFour[4] = { 0.4, 0.4, 0.4, 0.4 };
+__declspec(align(16)) float five[4] = { 5, 5, 5, 5 };
+__declspec(align(16)) int simdAscii[4] = { 48, 48, 48, 48 };
+__m128i magicNumber = _mm_setr_epi32(0x66666667, 0x66666667, 0x66666667, 0x66666667);
+__m128i zeros = _mm_setr_epi32(0x0, 0x0, 0x0, 0x0);
+
 int threads = 8;
 
 void getData(void);
@@ -70,6 +78,7 @@ void outputDataAsString(void);
 void outputAllDataAsString(void);
 void outputTimes(void);
 void outputDataAsString(void);
+void ItoA_SIMD(int, char *);
 int sIndex = _data[0][0];
 int mIndex = _data[MAX_ROWS / 2][MAX_COLS / 2];
 int eIndex = _data[MAX_ROWS - 1][MAX_COLS - 1];
@@ -590,6 +599,7 @@ void outputDataAsString()
 void outputAllDataAsString()
 {
 	char numString[MAX_CHARS];
+	char SIMD_String[MAX_CHARS * 4] = "heree\0";	// can accommodate 4 converted numbers
 	string odata;
 	cout << "\n\nOutputting data to " << SortedAll << "...";
 
@@ -608,3 +618,105 @@ void outputAllDataAsString()
 	fclose(sodata);
 }
 //*********************************************************************************
+
+//***********************************************************
+// This code should avoid division and use SIMD.
+
+void ItoA_SIMD(int num, char * numStr)
+{
+/*
+//__mi128i pointers to data
+__m128i* pidata = (__m128i*) sData;
+__m128i* ascii = (__m128i*) simdAscii;
+__m128* pFour = (__m128*) pointFour;
+__m128* pFive = (__m128*) five;
+*/
+
+// *** to be written ***
+///*
+__asm {
+	//!mov		esi, pidata	//point esi to sData
+	//!mov     eax, pFour //point eax to pFour
+	mov		ebx, numStr		// point EBX to numStr
+	//!mov		edi, ascii //point EDI to ascii	
+	//!mov		esp, pFive //point ESP to pFive
+	movdqa	xmm0, sData	//store first four elements of sData in xmm0
+	movdqa	xmm2, xmm0	//make a copy of xmm0
+	movdqa  xmm4, pointFour
+	movdqa  xmm5, five
+	movdqa	xmm6, simdAscii
+	vpcmpeqb    xmm2, xmm0, xmm2    //Compare data against zeros
+	je		endItoA
+
+	nextSet :
+	//jne	nextset
+	//mov	[ebx], ASCII		// THEN simply set numStr to ASCII "0"
+	//mov	[ebx + 1], NULL	//      add terminating null character
+	//jmp	endItoA			//      and end
+
+	// -------- divide num by 10 to get next digit, using a performance trick. ---------------
+	//nextset:	mov		eax, 66666667h	// 66666667h = 2^34 / 10
+	//mov		eax, 66666667h	// 66666667h = 2^34 / 10
+	//pmulhw	xmm0, xmm4
+	movdpa	xmm2, xmm0		//make a copy of xmm0
+	mulps	xmm0, xmm4		//multiply xmm0 by 2^2/10, store in xmm0
+	psrad	xmm0, 2			//xmm0 = num * 2^2/10 * 1/2^2, 
+								// cancel out the 2^2, and you get num/10
+	movdqa  xmm1, xmm0
+	mulps   xmm1, xmm5
+	//movdqa  xmm2, [xmm0 + xmm0 * 4]
+	addps   xmm1, xmm1
+	//lea		ecx,[edx+edx*4]	// ECX = EDX * 5
+	//add		ecx,ecx			// ECX = EDX * 10 (could use "sal ecx,1")
+	// therefore ECX = (number div 10)*10
+
+	movdqa	xmm3, xmm2	//xmm3 is a copy of A (will become S)
+	subps	xmm3, xmm1
+	addps	xmm3, xmm6		// add 30h to make EAX the digit's ASCII code
+
+	movdqa[oword ptr numStr + edx], xmm3      //Store xmm3 to numStr array
+	 /*
+	  x = _mm_packs_epi32(x, x);
+	  x = _mm_packus_epi16(x, x);
+	  *((int*)array) = _mm_cvtsi128_si32(x);
+	 */
+	 /*
+	 packsswb	xmm4, xmm3
+	 packuswb	xmm4, xmm4
+	 movd		ebp, xmm4
+	 mov			[ebx], ebp
+	 */
+	 //movdqa		[ebx], xmm4
+	add		ebx, 16
+	//mov		[ebx], al		// store digit character in "numStr"
+	//inc		ebx				// move pointer along string
+
+	//cmp		esi, 0			// if (number div 10) = 0, we've finished
+	//jnz		nextset
+
+	mov[ebx], NULL		// so add terminating null character
+
+	//ASM Ver
+	//reverse string
+	mov		edx, numStr		// the number is in reverse order of digits
+	nextChar : dec		ebx				// so we need to reverse the string
+	cmp		ebx, edx
+	jle		endItoA
+	mov		eax, [edx]
+	mov		ecx, [ebx]
+	mov		[ebx], al
+	mov		[edx], cl
+	inc		edx
+	jmp     nextChar
+
+	ptest	xmm0, zeros
+	jne	nextSet
+
+	endItoA :
+				pop esi
+				pop ebx
+		//End ASM ver	
+}// end of ASM block
+ //*/
+}
+//***********************************************************

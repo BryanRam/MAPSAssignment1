@@ -529,3 +529,23 @@ Time for outputting to file SortedAll.txt : 0.219579 seconds
 Combined time               (s) : 0.770151
 __________________________________________________
 
+
+
+Time for sorting all rows : 0.0806476 seconds
+
+Time for sorting all numbers : 0.274592 seconds
+Time for outputting to file SortedRows.txt : 0.214026 seconds
+Time for outputting to file SortedAll.txt : 0.214736 seconds
+Combined time               (s) : 0.784002
+__________________________________________________
+
+
+
+Time for sorting all rows : 0.0727831 seconds
+
+Time for sorting all numbers : 0.25491 seconds
+Time for outputting to file SortedRows.txt : 0.207614 seconds
+Time for outputting to file SortedAll.txt : 0.216169 seconds
+Combined time               (s) : 0.751476
+__________________________________________________
+
